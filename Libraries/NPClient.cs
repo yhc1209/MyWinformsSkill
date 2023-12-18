@@ -28,7 +28,7 @@ namespace Libraries
                 }
                 catch (Exception e)
                 {
-                    LastPhrase = Globals.ExcpMsg(e);
+                    LastPhrase = $"{e.GetType().Name} - {e.Message}";
                     return false;
                 }
             }

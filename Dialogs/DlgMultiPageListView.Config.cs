@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Dialogs
 {
     #region data
-    /// <summary>The data which will show in ListView.</summary>
+    /// <summary>The example data which will show in ListView.</summary>
     public class LsvData
     {
         public int Id { get; set; }
@@ -28,7 +28,8 @@ namespace Dialogs
     }
     #endregion
 
-    public partial class DlgMultiPageListView : Form
-    {}
-
+    public partial class DlgMultiPageListView<T> : Form
+    {
+        private List<T> objects = null;
+    }
 }
