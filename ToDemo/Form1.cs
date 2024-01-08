@@ -1,10 +1,12 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Dialogs;
@@ -31,8 +33,14 @@ namespace ToDemo
 
         private void demoMultiPageListView()
         {
-            using (DlgMultiPageListView dlg = new DlgMultiPageListView())
-            {}
+            // load data
+            string json = File.ReadAllText(@"ToDemo\data\NumbersOfClass1.json");
+            Class1[] info = JsonSerializer.Deserialize<Class1[]>(json);
+
+            using (DlgMultiPageListView<Class1> dlg = new DlgMultiPageListView<Class1>(info))
+            {
+                dlg.ShowDialog();
+            }
         }
     }
 }

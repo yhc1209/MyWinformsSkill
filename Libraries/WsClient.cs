@@ -105,7 +105,7 @@ namespace Libraries
             }
             catch (Exception excp)
             {
-                SDEventVwr.ExcpLog("Exception thrown while close web socket connection.", excp);
+                // SDEventVwr.ExcpLog("Exception thrown while close web socket connection.", excp);
             }
             _ws.Dispose();
         }
@@ -178,83 +178,83 @@ namespace Libraries
                     JsonSerializerOptions op = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
                     switch (rcv["action"].ToString())
                     {
-                        case "getFolderInfos":
-                        {
-                            var req = JsonSerializer.Deserialize<SDWS_RQST_NODE>(msg, op);
-                            Debug.WriteLine($"[WsClient] server({req.Account})請問{req.Path}的資訊。 (僅資料夾?{req.DirOnly})");
-                            arg = new SdWsEventHandlerArgs { ServerUrl = _svrurl, Request = req, Response = null };
-                            break;
-                        }
-                        case "ClientSetting":
-                        {
-                            var req = JsonSerializer.Deserialize<SDWS_RQST_SET>(msg, op);
-                            Debug.WriteLine($"[WsClient] server({req.Account})想設定你的資訊。");
-                            arg = new SdWsEventHandlerArgs { ServerUrl = _svrurl, Request = req, Response = null };
-                            break;
-                        }
-                        case "CurrentClientSetting":
-                        {
-                            var req = JsonSerializer.Deserialize<SDWS_RQST_CURRSET>(msg, op);
-                            Debug.WriteLine($"[WsClient] server({req.Account})請問你的設定資訊。");
-                            arg = new SdWsEventHandlerArgs { ServerUrl = _svrurl, Request = req, Response = null };
-                            break;
-                        }
-                        case "hiddenCheck":
-                        {
-                            var req = JsonSerializer.Deserialize<SDWS_RQST_HIDDENCHECK>(msg, op);
-                            Debug.WriteLine($"[WsClient] server({req.Account})想問{req.Path}能否設為隱藏區。");
-                            arg = new SdWsEventHandlerArgs { ServerUrl = _svrurl, Request = req, Response = null };
-                            break;
-                        }
-                        case "secprocCheck":
-                        {
-                            var req = JsonSerializer.Deserialize<SDWS_RQST_SECPROCCHECK>(msg, op);
-                            Debug.WriteLine($"[WsClient] server({req.Account})想問{req.Path}能否設為安全程序。");
-                            arg = new SdWsEventHandlerArgs { ServerUrl = _svrurl, Request = req, Response = null };
-                            break;
-                        }
-                        case "createFolder":
-                        {
-                            var req = JsonSerializer.Deserialize<SDWS_RQST_NEWFOLDR>(msg, op);
-                            Debug.WriteLine($"[WsClient] server({req.Account})想建立資料夾{req.Fullpath}。");
-                            arg = new SdWsEventHandlerArgs { ServerUrl = _svrurl, Request = req, Response = null };
-                            break;
-                        }
-                        case "ClientBatchSetting":
-                        {
-                            var req = JsonSerializer.Deserialize<SDWS_RQST_BATCH>(msg, op);
-                            Debug.WriteLine($"[WsClient] server({req.Account})想做批次設定。");
-                            arg = new SdWsEventHandlerArgs { ServerUrl = _svrurl, Request = req, Response = null };
-                            break;
-                        }
-                        case "getSettingRequest":
-                        {
-                            var req = JsonSerializer.Deserialize<SDWS_RQST_GETSETTING>(msg, op);
-                            Debug.WriteLine($"[WsClient] server({req.Account})要求你做getSetting。");
-                            arg = new SdWsEventHandlerArgs { ServerUrl = _svrurl, Request = req, Response = null };
-                            break;
-                        }
-                        case "getClientPerm":
-                        {
-                            var req = JsonSerializer.Deserialize<SDWS_RQST_GETCLNPERM>(msg, op);
-                            Debug.WriteLine($"[WsClient] server({req.Account})想索取使用者權限資訊。");
-                            arg = new SdWsEventHandlerArgs { ServerUrl = _svrurl, Request = req, Response = null };
-                            break;
-                        }
-                        case "setClientPerm":
-                        {
-                            var req = JsonSerializer.Deserialize<SDWS_RQST_SETCLNPERM>(msg, op);
-                            Debug.WriteLine($"[WsClient] server({req.Account})想設定使用者權限資訊。");
-                            arg = new SdWsEventHandlerArgs { ServerUrl = _svrurl, Request = req, Response = null };
-                            break;
-                        }
-                        case "getClientUsers":
-                        {
-                            var req = JsonSerializer.Deserialize<SDWS_RQST_GETCLNUSERS>(msg, op);
-                            Debug.WriteLine($"[WsClient] server({req.Account})想索取使用者名單。");
-                            arg = new SdWsEventHandlerArgs { ServerUrl = _svrurl, Request = req, Response = null };
-                            break;
-                        }
+                        // case "getFolderInfos":
+                        // {
+                        //     var req = JsonSerializer.Deserialize<SDWS_RQST_NODE>(msg, op);
+                        //     Debug.WriteLine($"[WsClient] server({req.Account})請問{req.Path}的資訊。 (僅資料夾?{req.DirOnly})");
+                        //     arg = new SdWsEventHandlerArgs { ServerUrl = _svrurl, Request = req, Response = null };
+                        //     break;
+                        // }
+                        // case "ClientSetting":
+                        // {
+                        //     var req = JsonSerializer.Deserialize<SDWS_RQST_SET>(msg, op);
+                        //     Debug.WriteLine($"[WsClient] server({req.Account})想設定你的資訊。");
+                        //     arg = new SdWsEventHandlerArgs { ServerUrl = _svrurl, Request = req, Response = null };
+                        //     break;
+                        // }
+                        // case "CurrentClientSetting":
+                        // {
+                        //     var req = JsonSerializer.Deserialize<SDWS_RQST_CURRSET>(msg, op);
+                        //     Debug.WriteLine($"[WsClient] server({req.Account})請問你的設定資訊。");
+                        //     arg = new SdWsEventHandlerArgs { ServerUrl = _svrurl, Request = req, Response = null };
+                        //     break;
+                        // }
+                        // case "hiddenCheck":
+                        // {
+                        //     var req = JsonSerializer.Deserialize<SDWS_RQST_HIDDENCHECK>(msg, op);
+                        //     Debug.WriteLine($"[WsClient] server({req.Account})想問{req.Path}能否設為隱藏區。");
+                        //     arg = new SdWsEventHandlerArgs { ServerUrl = _svrurl, Request = req, Response = null };
+                        //     break;
+                        // }
+                        // case "secprocCheck":
+                        // {
+                        //     var req = JsonSerializer.Deserialize<SDWS_RQST_SECPROCCHECK>(msg, op);
+                        //     Debug.WriteLine($"[WsClient] server({req.Account})想問{req.Path}能否設為安全程序。");
+                        //     arg = new SdWsEventHandlerArgs { ServerUrl = _svrurl, Request = req, Response = null };
+                        //     break;
+                        // }
+                        // case "createFolder":
+                        // {
+                        //     var req = JsonSerializer.Deserialize<SDWS_RQST_NEWFOLDR>(msg, op);
+                        //     Debug.WriteLine($"[WsClient] server({req.Account})想建立資料夾{req.Fullpath}。");
+                        //     arg = new SdWsEventHandlerArgs { ServerUrl = _svrurl, Request = req, Response = null };
+                        //     break;
+                        // }
+                        // case "ClientBatchSetting":
+                        // {
+                        //     var req = JsonSerializer.Deserialize<SDWS_RQST_BATCH>(msg, op);
+                        //     Debug.WriteLine($"[WsClient] server({req.Account})想做批次設定。");
+                        //     arg = new SdWsEventHandlerArgs { ServerUrl = _svrurl, Request = req, Response = null };
+                        //     break;
+                        // }
+                        // case "getSettingRequest":
+                        // {
+                        //     var req = JsonSerializer.Deserialize<SDWS_RQST_GETSETTING>(msg, op);
+                        //     Debug.WriteLine($"[WsClient] server({req.Account})要求你做getSetting。");
+                        //     arg = new SdWsEventHandlerArgs { ServerUrl = _svrurl, Request = req, Response = null };
+                        //     break;
+                        // }
+                        // case "getClientPerm":
+                        // {
+                        //     var req = JsonSerializer.Deserialize<SDWS_RQST_GETCLNPERM>(msg, op);
+                        //     Debug.WriteLine($"[WsClient] server({req.Account})想索取使用者權限資訊。");
+                        //     arg = new SdWsEventHandlerArgs { ServerUrl = _svrurl, Request = req, Response = null };
+                        //     break;
+                        // }
+                        // case "setClientPerm":
+                        // {
+                        //     var req = JsonSerializer.Deserialize<SDWS_RQST_SETCLNPERM>(msg, op);
+                        //     Debug.WriteLine($"[WsClient] server({req.Account})想設定使用者權限資訊。");
+                        //     arg = new SdWsEventHandlerArgs { ServerUrl = _svrurl, Request = req, Response = null };
+                        //     break;
+                        // }
+                        // case "getClientUsers":
+                        // {
+                        //     var req = JsonSerializer.Deserialize<SDWS_RQST_GETCLNUSERS>(msg, op);
+                        //     Debug.WriteLine($"[WsClient] server({req.Account})想索取使用者名單。");
+                        //     arg = new SdWsEventHandlerArgs { ServerUrl = _svrurl, Request = req, Response = null };
+                        //     break;
+                        // }
                         default:
                         {
                             Debug.WriteLine($"[WsClient] 收到未知訊息。 {msg}");
