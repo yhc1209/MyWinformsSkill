@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using System.Collections.Generic;
 using ToDemo.Data;
+using mwSkills.Dialogs;
 
 namespace ToDemo
 {
@@ -40,10 +41,10 @@ namespace ToDemo
             foreach (TestMember m in members)
                 Log(m.ToString());
 
-            // using (DlgMultiPageListView<Class1> dlg = new DlgMultiPageListView<Class1>(info))
-            // {
-            //     dlg.ShowDialog();
-            // }
+            using (DlgMultiPageListView<TestMember> dlg = new DlgMultiPageListView<TestMember>(func))
+            {
+                dlg.ShowDialog();
+            }
         }
     }
 }

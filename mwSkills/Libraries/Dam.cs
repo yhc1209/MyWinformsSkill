@@ -1,6 +1,6 @@
 using System;
 
-namespace Libraries
+namespace mwSkills.Libraries
 {
     /// <summary>用來防止洗版(flooding)的類別。</summary>
     /// <remarks></remarks>

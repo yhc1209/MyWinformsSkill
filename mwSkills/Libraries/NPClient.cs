@@ -4,7 +4,7 @@ using System.Text.Json;
 using System.IO;
 using System.IO.Pipes;
 
-namespace Libraries
+namespace mwSkills.Libraries
 {
     public class NPClient
     {

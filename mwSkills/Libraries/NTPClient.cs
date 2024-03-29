@@ -2,7 +2,7 @@ using System;
 using System.Net.Sockets;
 using System.Diagnostics;
 
-namespace Libraries
+namespace mwSkills.Libraries
 {
     /// <summary>跟連線的物件。</summary>
     public class NTPClient

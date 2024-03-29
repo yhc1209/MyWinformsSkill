@@ -1,6 +1,6 @@
 using System;
 
-namespace Libraries
+namespace mwSkills.Libraries
 {
     public struct SD3NP_PKG
     {

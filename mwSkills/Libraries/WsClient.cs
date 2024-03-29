@@ -12,7 +12,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Security.Cryptography;
 
-namespace Libraries
+namespace mwSkills.Libraries
 {
     public class WsClient
     {
