@@ -1,15 +1,7 @@
 ﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Dialogs;
+using System.Collections.Generic;
+using ToDemo.Data;
 
 namespace ToDemo
 {
@@ -19,6 +11,16 @@ namespace ToDemo
         {
             InitializeComponent();
         }
+
+        #region output
+        private void Log(string msg, bool newline = true)
+        {
+            if (newline)
+                TbxOutput.AppendText($"{msg}{Environment.NewLine}");
+            else
+                TbxOutput.AppendText(msg);
+        }
+        #endregion
 
         #region events
         private void keyDownEvent(object sender, KeyEventArgs e)
@@ -34,13 +36,14 @@ namespace ToDemo
         private void demoMultiPageListView()
         {
             // load data
-            string json = File.ReadAllText(@"ToDemo\data\NumbersOfClass1.json");
-            Class1[] info = JsonSerializer.Deserialize<Class1[]>(json);
+            List<TestMember> members = TestMember.GenerateRandomMembers(10);
+            foreach (TestMember m in members)
+                Log(m.ToString());
 
-            using (DlgMultiPageListView<Class1> dlg = new DlgMultiPageListView<Class1>(info))
-            {
-                dlg.ShowDialog();
-            }
+            // using (DlgMultiPageListView<Class1> dlg = new DlgMultiPageListView<Class1>(info))
+            // {
+            //     dlg.ShowDialog();
+            // }
         }
     }
 }
