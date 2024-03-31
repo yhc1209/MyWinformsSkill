@@ -25,11 +25,11 @@ public class TestMember : IListViewData
     }
     
     public static ColumnHeader[] ColumnHeaders { get; } = {
-        new ColumnHeader { TextAlign = HorizontalAlignment.Center, Name = "編號", Width = 50 },
-        new ColumnHeader { TextAlign = HorizontalAlignment.Center, Name = "名字", Width = 150 },
-        new ColumnHeader { TextAlign = HorizontalAlignment.Center, Name = "年齡", Width = 30 },
-        new ColumnHeader { TextAlign = HorizontalAlignment.Center, Name = "註冊時間", Width = 200 },
-        new ColumnHeader { TextAlign = HorizontalAlignment.Center, Name = "備註", Width = 200 }
+        new ColumnHeader { TextAlign = HorizontalAlignment.Center, Text = "編號", Width = 50 },
+        new ColumnHeader { TextAlign = HorizontalAlignment.Center, Text = "名字", Width = 150 },
+        new ColumnHeader { TextAlign = HorizontalAlignment.Center, Text = "年齡", Width = 50 },
+        new ColumnHeader { TextAlign = HorizontalAlignment.Center, Text = "註冊時間", Width = 200 },
+        new ColumnHeader { TextAlign = HorizontalAlignment.Center, Text = "備註", Width = 300 }
     };
 
     public static TestMember GenerateRandomMember(int? id = null, Random random = null)

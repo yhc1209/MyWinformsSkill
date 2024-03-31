@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using ToDemo.Data;
@@ -36,10 +37,23 @@ namespace ToDemo
 
         private void demoMultiPageListView()
         {
-            // load data
-            List<TestMember> members = TestMember.GenerateRandomMembers(10);
-            foreach (TestMember m in members)
-                Log(m.ToString());
+            Random r = new Random(235436);
+            int count = 0, max = r.Next(120, 125);
+            DlgMultiPageListView<TestMember>.UpdateDataCallback func = () => {
+                if (count < max)
+                {
+                    int newCount = r.Next(3, 10);
+                    var members = TestMember.GenerateRandomMembers(newCount, count - 1);
+                    Debug.WriteLine($"[demoMultiPageListView] 新增{newCount}個成員資料。");
+                    count += newCount;
+                    return members;
+                }
+                else
+                {
+                    Debug.WriteLine("[demoMultiPageListView] 沒再增加了。");
+                    return Array.Empty<TestMember>();
+                }
+            };
 
             using (DlgMultiPageListView<TestMember> dlg = new DlgMultiPageListView<TestMember>(func))
             {

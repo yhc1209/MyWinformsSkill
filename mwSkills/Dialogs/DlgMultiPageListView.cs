@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using System.Diagnostics;
 using System.Windows.Forms;
 using System.Collections.Generic;
 
@@ -11,15 +13,37 @@ public partial class DlgMultiPageListView<T> : Form where T: IListViewData
     /// <summary>當前頁數。(zero-based)</summary>
     private int currentPage = 0;
     private object lock_data = new object();
+    private Timer tmr;
 
     public DlgMultiPageListView(UpdateDataCallback callback)
     {
         InitializeComponent();
         UpdateCallback = callback;
     }
+    private void formLoad(object sender, EventArgs e)
+    {
+        LsvData.Items.Clear();
+        updateData();
+
+        // timer
+        tmr = new Timer();
+        tmr.Interval = 5000;
+        tmr.Tick += (_, _) => {
+            // Debug.WriteLine("[tmr] tick!");
+            updateData();
+        };
+        tmr.Start();
+    }
     private void updateData()
     {
-        lock (lock_data) { data = UpdateCallback.Invoke(); }
+        var newMembers = UpdateCallback();
+        Debug.WriteLine($"[xxx] 新增{newMembers.Count<T>()}個。");
+        lock (lock_data)
+        {
+            data.AddRange(newMembers);
+            Debug.WriteLine($"[xxx] 目前data有{data.Count}個。");
+        }
+        GoToPg(currentPage);
     }
 
     private void updatePgDscp(int from, int to, int total)
@@ -48,7 +72,7 @@ public partial class DlgMultiPageListView<T> : Form where T: IListViewData
     }
 
     /// <summary>將<see cref="LsvData"/>刷新到第<paramref name="pg"/>頁的畫面。</summary>
-    /// <param name="pg">頁數(zero-based)。</param>
+    /// <param name="pg">頁數(zero-based)。若提供小於0的值表示要到最後一頁。</param>
     /// <remarks>頁數<pararef name="pg"/>是從0開始算。</remarks>
     private void GoToPg(int pg)
     {
@@ -58,7 +82,13 @@ public partial class DlgMultiPageListView<T> : Form where T: IListViewData
         lock (lock_data)
         {
             total = data.Count;
-            if (total <= from)
+            if (from < 0)
+            {
+                pg = total/itemsPerPage;
+                from = pg * itemsPerPage;
+                to = total - 1;
+            }
+            else if (total <= from)
             {
                 if (currentPage == 0)
                     return;
@@ -72,7 +102,7 @@ public partial class DlgMultiPageListView<T> : Form where T: IListViewData
             dataArr = data.GetRange(from, to - from).ToArray();
         }
         LsvData.BeginUpdate();
-        LsvData.Clear();
+        LsvData.Items.Clear();
         foreach (T d in dataArr)
             LsvData.Items.Add(d.ToLsvItem());
         updatePgDscp(from + 1, to + 1, total);
@@ -101,6 +131,6 @@ public partial class DlgMultiPageListView<T> : Form where T: IListViewData
     
     private void GoToLstPg(object sender, EventArgs e)
     {
-        throw new NotImplementedException();
+        GoToPg(-1);
     }
 }

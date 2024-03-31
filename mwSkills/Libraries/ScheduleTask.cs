@@ -5,8 +5,8 @@ namespace mwSkills.Libraries
 {
     public class ScheduleTask
     {
-        private Timer tmrStart;
-        private Timer tmrStop;
+        // private Timer tmrStart;
+        // private Timer tmrStop;
     }
 
     public class ScheduleTaskEventArgs : EventArgs
